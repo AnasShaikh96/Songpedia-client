@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Dashboard from "./Dashboard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar({
   tracks,
@@ -12,22 +13,31 @@ function Navbar({
 }) {
   return (
     <div>
-      <nav className="navbar navbar-dark bg-dark">
-        <div className="container-fluid">
-          <a className="navbar-brand">Songpedia</a>
-          <div className="d-flex justify-contents-center align-items-center">
-            <input
-              type="text"
-              onChange={(e) => {
-                getSearchTracks(e.target.value);
-              }}
-              placeholder="Search for Artists,Songs or Albums"
-            />
-            <button className="btn btn-outline-success btn-sm">Search</button>
+      <nav className="navbar navbar-dark  " style={{ background: "#595959" }}>
+        <div className="container ">
+          <a className="navbar-brand me-5">Songpedia</a>
+          <div className="flex-grow-1 w-50">
+            <div className="input-group m-2 ">
+              <input
+                type="text"
+                className="form-control "
+                onChange={(e) => {
+                  setSearchResult(e.target.value);
+                }}
+                placeholder="Search for Artists,Songs or Albums"
+              />
+              <span className="input-group-text bg-light" id="basic-addon2">
+                <i class="fas fa search"></i>
+                <FontAwesomeIcon icon={faSearch} />
+              </span>
+            </div>
           </div>
         </div>
       </nav>
-      <div className=" bg-dark text-light">
+      <div
+        className="nav justify-content-center  text-light fs-5"
+        style={{ background: "#353535" }}
+      >
         <ul className="nav">
           <li className="nav-item">
             <a className="nav-link link-light " aria-current="page">
@@ -45,11 +55,22 @@ function Navbar({
           </li>
         </ul>
       </div>
-      <Dashboard tracks={tracks} getArtistAlbums={getArtistAlbums} />
+      {/* <Dashboard tracks={tracks} getArtistAlbums={getArtistAlbums} /> */}
       <div>
-        {/* {searchAllTracks.map((track) => {
-          console.log(track.name);
-        })} */}
+        {searchAllTracks.map((track) => {
+          return (
+            <div
+              className="d-flex justify-contents-center align-items-center m-2"
+              key={track.uri}
+            >
+              <img src={track.albumUrl} className="" width="100" height="100" />
+              <div className="">
+                <p className="fw-bold">{track.title}</p>
+                <p className="text-muted">{track.artistName}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

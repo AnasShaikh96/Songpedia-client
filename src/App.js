@@ -2,18 +2,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import Login from "./components/Login.js";
-// import Dashboard from "./components/Dashboard.js";
+import Dashboard from "./components/Dashboard.js";
 import Navbar from "./components/Navbar.js";
+
+import getHashParams from "./methods/window/getHashParams";
 
 const spotifyApi = new SpotifyWebApi();
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [tracks, setTracks] = useState([]);
-  const params = new getHashParams();
   const [searchResult, setSearchResult] = useState("");
   const [searchAllTracks, setSearchAllTracks] = useState([]);
-  console.log(searchAllTracks);
+
+  const params = new getHashParams();
   const token = params.access_token;
 
   useEffect(() => {
@@ -23,19 +25,21 @@ const App = () => {
       console.log(tracks);
     }
   }, [token]);
+  useEffect(() => {
+    getAlbum();
+    getSearchTracks();
+  }, [searchResult]);
 
-  function getHashParams() {
-    var hashParams = {};
-    var e,
-      r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.hash.substring(1);
-    e = r.exec(q);
-    while (e) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-      e = r.exec(q);
-    }
-    return hashParams;
-  }
+  const getAlbum = () => {
+    spotifyApi
+      .getAlbum("5U4W9E5WsYb2jUQWePT8Xm")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("Error from getArtist", err);
+      });
+  };
 
   const getArtistAlbums = () => {
     spotifyApi
@@ -47,13 +51,11 @@ const App = () => {
         });
       })
       .catch((e) => console.log(e));
-
-    console.log(tracks);
   };
 
   const getSearchTracks = () => {
     spotifyApi
-      .searchTracks({ searchResult })
+      .searchTracks(searchResult)
       .then((res) => {
         const tracks = res.tracks.items;
         const trackArray = tracks.map((track) => {
