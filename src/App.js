@@ -11,7 +11,6 @@ const spotifyApi = new SpotifyWebApi();
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [tracks, setTracks] = useState([]);
   const [searchResult, setSearchResult] = useState("");
   const [searchAllTracks, setSearchAllTracks] = useState([]);
 
@@ -22,35 +21,23 @@ const App = () => {
     if (token) {
       spotifyApi.setAccessToken(token);
       setLoggedIn(true);
-      console.log(tracks);
     }
   }, [token]);
   useEffect(() => {
     getAlbum();
     getSearchTracks();
+    console.log(searchAllTracks[0]);
   }, [searchResult]);
 
   const getAlbum = () => {
     spotifyApi
-      .getAlbum("5U4W9E5WsYb2jUQWePT8Xm")
+      .getAlbum("3Y6XTh0tVmiqdHQ6X7oFqX")
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
         console.log("Error from getArtist", err);
       });
-  };
-
-  const getArtistAlbums = () => {
-    spotifyApi
-      .getArtistAlbums("43ZHCT0cAZBISjO8DG9PnE")
-      .then((res) => {
-        setTracks({
-          name: res.items[0].name,
-          img: res.items[0].images[0].url,
-        });
-      })
-      .catch((e) => console.log(e));
   };
 
   const getSearchTracks = () => {
@@ -74,11 +61,7 @@ const App = () => {
   };
   return loggedIn ? (
     <Navbar
-      tracks={tracks}
-      getArtistAlbums={getArtistAlbums}
       setSearchResult={setSearchResult}
-      searchResult={searchResult}
-      getSearchTracks={getSearchTracks}
       searchAllTracks={searchAllTracks}
     />
   ) : (

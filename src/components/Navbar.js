@@ -3,14 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-function Navbar({
-  tracks,
-  getArtistAlbums,
-  searchResult,
-  setSearchResult,
-  getSearchTracks,
-  searchAllTracks,
-}) {
+function Navbar({ setSearchResult, searchAllTracks }) {
   return (
     <div>
       <nav className="navbar navbar-dark  " style={{ background: "#595959" }}>
