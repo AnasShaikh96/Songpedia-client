@@ -11,7 +11,9 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [tracks, setTracks] = useState([]);
   const params = new getHashParams();
-  // console.log(params);
+  const [searchResult, setSearchResult] = useState("");
+  const [searchAllTracks, setSearchAllTracks] = useState([]);
+  console.log(searchAllTracks);
   const token = params.access_token;
 
   useEffect(() => {
@@ -50,11 +52,33 @@ const App = () => {
   };
 
   const getSearchTracks = () => {
-    spotifyApi.searchTracks();
+    spotifyApi
+      .searchTracks({ searchResult })
+      .then((res) => {
+        const tracks = res.tracks.items;
+        const trackArray = tracks.map((track) => {
+          return {
+            artistName: track.artists[0].name,
+            title: track.name,
+            uri: track.uri,
+            albumUrl: track.album.images[0].url,
+          };
+        });
+        setSearchAllTracks(trackArray);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
-
   return loggedIn ? (
-    <Navbar tracks={tracks} getArtistAlbums={getArtistAlbums} />
+    <Navbar
+      tracks={tracks}
+      getArtistAlbums={getArtistAlbums}
+      setSearchResult={setSearchResult}
+      searchResult={searchResult}
+      getSearchTracks={getSearchTracks}
+      searchAllTracks={searchAllTracks}
+    />
   ) : (
     <Login />
   );

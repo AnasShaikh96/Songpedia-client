@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dashboard from "./Dashboard";
 
-function Navbar({ tracks, getArtistAlbums }) {
-  const [searchResult, setSearchResult] = useState("");
-  console.log(searchResult);
-
-  const handleChange = (e) => {
-    console.log(firstElementChild);
-  };
+function Navbar({
+  tracks,
+  getArtistAlbums,
+  searchResult,
+  setSearchResult,
+  getSearchTracks,
+  searchAllTracks,
+}) {
   return (
     <div>
       <nav className="navbar navbar-dark bg-dark">
@@ -18,8 +19,9 @@ function Navbar({ tracks, getArtistAlbums }) {
             <input
               type="text"
               onChange={(e) => {
-                handleChange(e);
+                getSearchTracks(e.target.value);
               }}
+              placeholder="Search for Artists,Songs or Albums"
             />
             <button className="btn btn-outline-success btn-sm">Search</button>
           </div>
@@ -44,6 +46,11 @@ function Navbar({ tracks, getArtistAlbums }) {
         </ul>
       </div>
       <Dashboard tracks={tracks} getArtistAlbums={getArtistAlbums} />
+      <div>
+        {/* {searchAllTracks.map((track) => {
+          console.log(track.name);
+        })} */}
+      </div>
     </div>
   );
 }
