@@ -1,11 +1,12 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function SearchRender({ searchAllTracks }) {
+function SearchRender({ searchAllTracks, display }) {
   return (
     <div
       className="overflow-auto"
       style={{
+        display: display,
         position: "absolute",
         zIndex: "1",
         height: "50vh",
