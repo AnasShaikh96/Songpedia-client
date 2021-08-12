@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import Login from "./components/Login.js";
 import Dashboard from "./components/Dashboard.js";
-import Navbar from "./components/Navbar.js";
+import Navbar from "./components/Navbar/Navbar.js";
 
 import getHashParams from "./methods/window/getHashParams";
 
@@ -24,14 +24,16 @@ const App = () => {
     }
   }, [token]);
   useEffect(() => {
-    getAlbum();
+    if (searchResult.length === 0) return;
     getSearchTracks();
-    console.log(searchAllTracks[0]);
+    // getAlbum();
+    // getSearchArtists();
+    console.log(searchResult);
   }, [searchResult]);
 
   const getAlbum = () => {
     spotifyApi
-      .getAlbum("3Y6XTh0tVmiqdHQ6X7oFqX")
+      .getAlbum("5U4W9E5WsYb2jUQWePT8Xm")
       .then((res) => {
         console.log(res);
       })
@@ -56,13 +58,26 @@ const App = () => {
         setSearchAllTracks(trackArray);
       })
       .catch((e) => {
-        console.log(e);
+        console.log("error from searchTracks", e);
       });
   };
+
+  const getSearchArtists = () => {
+    spotifyApi
+      .searchArtists(searchResult)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log("error from getSearchArtist", e);
+      });
+  };
+
   return loggedIn ? (
     <Navbar
       setSearchResult={setSearchResult}
       searchAllTracks={searchAllTracks}
+      searchResult={searchResult}
     />
   ) : (
     <Login />
