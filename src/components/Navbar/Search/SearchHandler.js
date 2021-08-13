@@ -8,11 +8,10 @@ function SearchHandler({ setSearchResult, searchAllTracks, searchResult }) {
     <div className="flex-grow-1 position-relative">
       <SearchBar setSearchResult={setSearchResult} />
 
-      {searchResult.length === 0 ? (
-        <SearchRender display={"none"} searchAllTracks={searchAllTracks} />
-      ) : (
-        <SearchRender display={"block"} searchAllTracks={searchAllTracks} />
-      )}
+      <SearchRender
+        searchAllTracks={searchAllTracks}
+        display={searchResult.length === 0 ? "none" : "block"}
+      />
     </div>
   );
 }
