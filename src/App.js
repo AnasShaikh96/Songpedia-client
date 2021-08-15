@@ -1,9 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
+
 import Login from "./components/Login/Login.js";
 import Navbar from "./components/Navbar/Navbar.js";
+
 import TopList from "./components/Dashboard/TopList.js";
+
 import FeaturedArtist from "./components/Dashboard/FeaturedArtist.js";
 
 import getHashParams from "./methods/window/getHashParams";
@@ -19,27 +22,34 @@ const App = () => {
   const [searchResult, setSearchResult] = useState("");
   const [searchAllTracks, setSearchAllTracks] = useState([]);
 
-  const [toplist, setToplist] = useState([]);
-
   const params = new getHashParams();
   const token = params.access_token;
 
   useEffect(() => {
     if (token) {
       spotifyApi.setAccessToken(token);
+
       setLoggedIn(true);
     }
   }, [token]);
 
+  setInterval(() => {
+    fetch("http://localhost:8888/refresh_token")
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e));
+  }, 3400);
+
   useEffect(() => {
     if (searchResult.length === 0) return;
     getSearchTracks();
-    getPlaylist();
+
+    // searchPlaylist();
+    // getPlaylist();
   }, [searchResult]);
 
   const searchPlaylist = () => {
     spotifyApi
-      .searchPlaylists("Hindi")
+      .searchPlaylists("Retro-Bollywood")
       .then((res) => {
         console.log(res);
       })
@@ -50,21 +60,21 @@ const App = () => {
 
   const getPlaylist = () => {
     spotifyApi
-      .getPlaylist("7lTfsY5pPGWeqX1D79SYb2")
+      .getPlaylist("3eePXCTXTVgjTOw2JyEMyj")
       .then((res) => {
-        const tracks = res.tracks.items;
-        const trackArray = tracks.map((track) => {
+        const artistArray = res.tracks.items;
+
+        artistArray.map((artist) => {
+          const names = artist.track.artists.map((name) => name.name);
+          console.log(artist.track);
           return {
-            songName: track.track.name,
-            artistName: track.track.artists[0].name,
-            trackUri: track.track.uri,
-            image: track.track.album.images[0].url,
+            artistName: names,
+            songName: artist.track.name,
           };
         });
-        setToplist(trackArray);
       })
       .catch((e) => {
-        console.log("error from getPlaylist", e);
+        console.log("error from getFeaturedArtist", e);
       });
   };
 
@@ -133,8 +143,8 @@ const App = () => {
         searchAllTracks={searchAllTracks}
         searchResult={searchResult}
       />
-      <TopList toplist={toplist} />
-      <FeaturedArtist />
+      <TopList loggedIn={loggedIn} />
+      {/* <FeaturedArtist loggedIn={loggedIn} /> */}
     </>
   ) : (
     <Login />
