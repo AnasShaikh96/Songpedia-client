@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar/Navbar.js";
 import TopList from "./components/Dashboard/TopList.js";
 
 import FeaturedArtist from "./components/Dashboard/FeaturedArtist.js";
-
+import Player from "./components/Dashboard/Player/Player.js";
 import getHashParams from "./methods/window/getHashParams";
 
 const spotifyApi = new SpotifyWebApi({
@@ -33,15 +33,16 @@ const App = () => {
     }
   }, [token]);
 
-  setInterval(() => {
-    fetch("http://localhost:8888/refresh_token")
-      .then((res) => console.log(res))
-      .catch((e) => console.log(e));
-  }, 3400);
+  // setInterval(() => {
+  //   fetch("http://localhost:8888/refresh_token")
+  //     .then((res) => console.log(res))
+  //     .catch((e) => console.log(e));
+  // }, 3400);
 
   useEffect(() => {
     if (searchResult.length === 0) return;
     getSearchTracks();
+    // playSong();
 
     // searchPlaylist();
     // getPlaylist();
@@ -58,25 +59,37 @@ const App = () => {
       });
   };
 
-  const getPlaylist = () => {
-    spotifyApi
-      .getPlaylist("3eePXCTXTVgjTOw2JyEMyj")
-      .then((res) => {
-        const artistArray = res.tracks.items;
-
-        artistArray.map((artist) => {
-          const names = artist.track.artists.map((name) => name.name);
-          console.log(artist.track);
-          return {
-            artistName: names,
-            songName: artist.track.name,
-          };
-        });
-      })
-      .catch((e) => {
-        console.log("error from getFeaturedArtist", e);
-      });
+  const playSong = () => {
+    spotifyApi.play().then(
+      function () {
+        console.log("Playback started");
+      },
+      function (err) {
+        //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+        console.log("Something went wrong!", err);
+      }
+    );
   };
+
+  // const getPlaylist = () => {
+  //   spotifyApi
+  //     .getPlaylist("3eePXCTXTVgjTOw2JyEMyj")
+  //     .then((res) => {
+  //       const artistArray = res.tracks.items;
+
+  //       artistArray.map((artist) => {
+  //         const names = artist.track.artists.map((name) => name.name);
+  //         console.log(artist.track);
+  //         return {
+  //           artistName: names,
+  //           songName: artist.track.name,
+  //         };
+  //       });
+  //     })
+  //     .catch((e) => {
+  //       console.log("error from getFeaturedArtist", e);
+  //     });
+  // };
 
   const getAlbum = () => {
     spotifyApi
@@ -144,7 +157,8 @@ const App = () => {
         searchResult={searchResult}
       />
       <TopList loggedIn={loggedIn} />
-      {/* <FeaturedArtist loggedIn={loggedIn} /> */}
+      <FeaturedArtist loggedIn={loggedIn} />
+      <Player token={token} />
     </>
   ) : (
     <Login />

@@ -16,7 +16,6 @@ function SearchBar({ setSearchResult }) {
         placeholder="Search for Artists,Songs or Albums"
       />
       <span className="input-group-text bg-light" id="basic-addon2">
-        <i class="fas fa search"></i>
         <FontAwesomeIcon icon={faSearch} />
       </span>
     </div>

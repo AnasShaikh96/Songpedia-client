@@ -2,9 +2,11 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import GetToplist from "../../methods/Actions/getToplist";
 
-function TopList({ toplist }) {
-  return (
+function TopList({ loggedIn }) {
+  const songList = GetToplist();
+  return loggedIn ? (
     <div>
       <div
         className="p-2 border-bottom d-flex align-items-center justify-content-between"
@@ -17,7 +19,7 @@ function TopList({ toplist }) {
         className="d-flex flex-row flex-nowrap my-2 "
         style={{ overflow: "hidden" }}
       >
-        {toplist.map((data) => {
+        {songList.map((data) => {
           return (
             <div
               className="card m-1"
@@ -45,7 +47,7 @@ function TopList({ toplist }) {
         })}
       </div>
     </div>
-  );
+  ) : null;
 }
 
 export default TopList;

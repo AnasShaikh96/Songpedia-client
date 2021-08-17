@@ -19,11 +19,29 @@ function FeaturedArtist() {
         className="d-flex flex-row flex-nowrap my-2 "
         style={{ overflow: "hidden" }}
       >
-        idhar aayega
         {artists.map((artist) => {
           return (
-            <div>
-              <p>{artist.songName} </p>
+            <div
+              className="card m-1"
+              style={{
+                height: "14rem",
+                overflow: "hidden",
+                minWidth: "9rem",
+              }}
+              key={artist.trackUri}
+            >
+              <img className="card-img-top" src={artist.image} alt="..." />
+              <div className="px-2">
+                <h5 className="text-nowrap" style={{ fontSize: "0.9em" }}>
+                  {artist.songName}
+                </h5>
+                <p
+                  className="text-muted text-wrap"
+                  style={{ fontSize: "0.9em" }}
+                >
+                  {artist.artistName}
+                </p>
+              </div>
             </div>
           );
         })}

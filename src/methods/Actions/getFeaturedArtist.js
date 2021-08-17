@@ -13,15 +13,25 @@ function GetFeaturedArtist() {
   spotifyApi
     .getPlaylist("3eePXCTXTVgjTOw2JyEMyj")
     .then((res) => {
-      const artistArray = res.tracks.items;
-      artistArray.map((artist) => {
-        return {};
+      const artists = res.tracks.items;
+      const artistArray = artists.map((artist) => {
+        const names = artist.track.artists.map((name) => name.name);
+
+        return {
+          artistName: [names],
+          songName: artist.track.name,
+          trackUri: artist.track.uri,
+          image: artist.track.album.images[0]
+            ? artist.track.album.images[0].url
+            : null,
+        };
       });
-      console.log(res);
+      setFeaturedArtist(artistArray);
     })
     .catch((e) => {
       console.log("error from getFeaturedArtist", e);
     });
+  return featuredArtist;
 }
 
 export default GetFeaturedArtist;
