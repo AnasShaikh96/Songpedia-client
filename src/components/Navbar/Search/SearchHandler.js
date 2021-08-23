@@ -2,16 +2,13 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchBar from "./SearchBar";
 import SearchRender from "./SearchRender";
+// import GetSearchTracks from "../../../methods/Actions/getSearchTracks";
 
-function SearchHandler({ setSearchResult, searchAllTracks, searchResult }) {
+function SearchHandler() {
   return (
     <div className="flex-grow-1 position-relative">
-      <SearchBar setSearchResult={setSearchResult} />
-
-      <SearchRender
-        searchAllTracks={searchAllTracks}
-        display={searchResult.length === 0 ? "none" : "block"}
-      />
+      <SearchBar />
+      <SearchRender />
     </div>
   );
 }

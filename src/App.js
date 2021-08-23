@@ -28,79 +28,14 @@ const App = () => {
   useEffect(() => {
     if (token) {
       spotifyApi.setAccessToken(token);
-
       setLoggedIn(true);
     }
   }, [token]);
 
-  // setInterval(() => {
-  //   fetch("http://localhost:8888/refresh_token")
-  //     .then((res) => console.log(res))
-  //     .catch((e) => console.log(e));
-  // }, 3400);
-
   useEffect(() => {
     if (searchResult.length === 0) return;
     getSearchTracks();
-    // playSong();
-
-    // searchPlaylist();
-    // getPlaylist();
   }, [searchResult]);
-
-  const searchPlaylist = () => {
-    spotifyApi
-      .searchPlaylists("Retro-Bollywood")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
-  const playSong = () => {
-    spotifyApi.play().then(
-      function () {
-        console.log("Playback started");
-      },
-      function (err) {
-        //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
-        console.log("Something went wrong!", err);
-      }
-    );
-  };
-
-  // const getPlaylist = () => {
-  //   spotifyApi
-  //     .getPlaylist("3eePXCTXTVgjTOw2JyEMyj")
-  //     .then((res) => {
-  //       const artistArray = res.tracks.items;
-
-  //       artistArray.map((artist) => {
-  //         const names = artist.track.artists.map((name) => name.name);
-  //         console.log(artist.track);
-  //         return {
-  //           artistName: names,
-  //           songName: artist.track.name,
-  //         };
-  //       });
-  //     })
-  //     .catch((e) => {
-  //       console.log("error from getFeaturedArtist", e);
-  //     });
-  // };
-
-  const getAlbum = () => {
-    spotifyApi
-      .getAlbum("5U4W9E5WsYb2jUQWePT8Xm")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log("Error from getArtist", err);
-      });
-  };
 
   const getSearchTracks = () => {
     spotifyApi
@@ -122,33 +57,6 @@ const App = () => {
       });
   };
 
-  const getSearchArtists = () => {
-    spotifyApi
-      .searchArtists(searchResult)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log("error from getSearchArtist", e);
-      });
-  };
-
-  const getCategories = () => {
-    spotifyApi
-      .getCategories({
-        limit: 20,
-        offset: 0,
-        country: "IN",
-        locale: "ine_IN",
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log("Error from getCategories", e);
-      });
-  };
-
   return loggedIn ? (
     <>
       <Navbar
@@ -156,9 +64,9 @@ const App = () => {
         searchAllTracks={searchAllTracks}
         searchResult={searchResult}
       />
-      <TopList loggedIn={loggedIn} />
-      <FeaturedArtist loggedIn={loggedIn} />
-      <Player token={token} />
+      {/* <TopList loggedIn={loggedIn} /> */}
+      {/* <FeaturedArtist loggedIn={loggedIn} /> */}
+      {/* <Player token={token} /> */}
     </>
   ) : (
     <Login />

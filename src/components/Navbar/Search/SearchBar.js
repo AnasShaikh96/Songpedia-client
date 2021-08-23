@@ -1,10 +1,12 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import GetSearchTracks from "../../../methods/Actions/getSearchTracks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-function SearchBar({ setSearchResult }) {
+function SearchBar() {
+  const values = GetSearchTracks();
+  const setSearchResult = values.setSearchResult;
   return (
     <div className="input-group d-flex flex-row ">
       <input
