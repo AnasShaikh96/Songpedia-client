@@ -15,7 +15,7 @@ function GetFeaturedArtist() {
     .then((res) => {
       const artists = res.tracks.items;
       const artistArray = artists.map((artist) => {
-        const names = artist.track.artists.map((name) => name.name);
+        const names = artist.track.artists.map((name) => [name.name]);
 
         return {
           artistName: [names],

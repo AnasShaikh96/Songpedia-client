@@ -1,12 +1,9 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import GetSearchTracks from "../../../methods/Actions/getSearchTracks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-function SearchBar() {
-  const values = GetSearchTracks();
-  const setSearchResult = values.setSearchResult;
+function SearchBar({ setSearchResult }) {
   return (
     <div className="input-group d-flex flex-row ">
       <input
@@ -15,7 +12,8 @@ function SearchBar() {
         onChange={(e) => {
           setSearchResult(e.target.value);
         }}
-        placeholder="Search for Artists,Songs or Albums"
+        placeholder="Search for Artists, Songs or Albums"
+        style={{ fontSize: ".9rem" }}
       />
       <span className="input-group-text bg-light" id="basic-addon2">
         <FontAwesomeIcon icon={faSearch} />

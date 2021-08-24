@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function NavigationTab() {
   return (
     <div
-      className="nav justify-content-center  text-light fs-5"
+      className="nav justify-content-center  text-light fs-6"
       style={{ background: "#353535" }}
     >
       <ul className="nav">

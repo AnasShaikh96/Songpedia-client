@@ -1,14 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import GetSearchTracks from "../../../methods/Actions/getSearchTracks";
 
-function SearchRender({ display }) {
-  const values = GetSearchTracks();
-  const searchAllTracks = values.searchAllTracks;
-  useEffect(() => {
-    console.log(searchAllTracks.length, "ren");
-  });
-
+function SearchRender({ searchAllTracks, display }) {
   return (
     <div
       className="overflow-auto"

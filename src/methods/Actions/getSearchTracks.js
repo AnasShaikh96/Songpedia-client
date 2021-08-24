@@ -35,7 +35,6 @@ function GetSearchTracks() {
         console.log("error from searchTracks", e);
       });
   };
-  console.log(searchAllTracks);
 
   return { searchAllTracks, setSearchResult, searchResult };
 }
