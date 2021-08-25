@@ -5,10 +5,11 @@ import SpotifyWebApi from "spotify-web-api-js";
 import Login from "./components/Login/Login.js";
 import Navbar from "./components/Navbar/Navbar.js";
 
+import SongpediaBanner from "./components/Dashboard/SongpediaBanner.js";
+
 import TopList from "./components/Dashboard/TopList.js";
 
 import FeaturedArtist from "./components/Dashboard/FeaturedArtist.js";
-import Player from "./components/Dashboard/Player/Player.js";
 import getHashParams from "./methods/window/getHashParams";
 
 const spotifyApi = new SpotifyWebApi({
@@ -33,9 +34,9 @@ const App = () => {
   return loggedIn ? (
     <>
       <Navbar />
-      <TopList loggedIn={loggedIn} />
-      <FeaturedArtist loggedIn={loggedIn} />
-      {/* <Player token={token} /> */}
+      <SongpediaBanner />
+      {/* <TopList loggedIn={loggedIn} /> */}
+      {/* <FeaturedArtist loggedIn={loggedIn} /> */}
     </>
   ) : (
     <Login />

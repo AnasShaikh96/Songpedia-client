@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 
 function GetFeaturedArtist() {
@@ -10,27 +10,34 @@ function GetFeaturedArtist() {
     redirectUri: "http://localhost:8888/callback",
   });
 
-  spotifyApi
-    .getPlaylist("3eePXCTXTVgjTOw2JyEMyj")
-    .then((res) => {
-      const artists = res.tracks.items;
-      const artistArray = artists.map((artist) => {
-        const names = artist.track.artists.map((name) => [name.name]);
+  useEffect(() => {
+    if (!featuredArtist.length === 0) return;
+    getArtist();
+  }, []);
 
-        return {
-          artistName: [names],
-          songName: artist.track.name,
-          trackUri: artist.track.uri,
-          image: artist.track.album.images[0]
-            ? artist.track.album.images[0].url
-            : null,
-        };
+  const getArtist = () => {
+    spotifyApi
+      .getPlaylist("3eePXCTXTVgjTOw2JyEMyj")
+      .then((res) => {
+        const artists = res.tracks.items;
+        const artistArray = artists.map((artist) => {
+          const names = artist.track.artists.map((name) => name.name);
+
+          return {
+            artistName: names.map((name) => name),
+            songName: artist.track.name,
+            trackUri: artist.track.uri,
+            image: artist.track.album.images[0]
+              ? artist.track.album.images[0].url
+              : null,
+          };
+        });
+        setFeaturedArtist(artistArray);
+      })
+      .catch((e) => {
+        console.log("error from getFeaturedArtist", e);
       });
-      setFeaturedArtist(artistArray);
-    })
-    .catch((e) => {
-      console.log("error from getFeaturedArtist", e);
-    });
+  };
   return featuredArtist;
 }
 

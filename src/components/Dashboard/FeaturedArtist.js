@@ -13,7 +13,12 @@ function FeaturedArtist() {
         style={{}}
       >
         <h2>Featured Artists</h2>
-        <FontAwesomeIcon icon={faArrowRight} className="fs-4" />
+        <p className="d-flex justify-content-end align-items-center">
+          <a className="pe-2 link-light" style={{ fontSize: ".8rem" }}>
+            SEE ALL
+          </a>
+          <FontAwesomeIcon icon={faArrowRight} className="fs-4" />
+        </p>
       </div>
       <div
         className="d-flex flex-row flex-nowrap "
@@ -24,7 +29,7 @@ function FeaturedArtist() {
             <div
               className="card m-1 text-light"
               style={{
-                height: "14rem",
+                height: "13rem",
                 overflow: "hidden",
                 minWidth: "9rem",
                 background: "#444",
@@ -41,18 +46,20 @@ function FeaturedArtist() {
                 <h5 className="text-nowrap" style={{ fontSize: "0.9em" }}>
                   {artist.songName}
                 </h5>
-                <p
+                <div
                   className="text-muted text-wrap"
                   style={{ fontSize: "0.8em" }}
                 >
-                  {artist.artistName.map((artist) => {
-                    return (
-                      <p>
-                        <span>{artist} </span>
-                      </p>
-                    );
-                  })}
-                </p>
+                  <ol className="breadcrumb">
+                    {artist.artistName.map((artist) => {
+                      return (
+                        <li className="breadcrumb-item" key={artist.trackUri}>
+                          <span>{artist}</span>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
               </div>
             </div>
           );
