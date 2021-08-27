@@ -14,9 +14,9 @@ function TopList({ loggedIn }) {
       >
         <h2>Top Hindi Songs</h2>
         <p className="d-flex justify-content-end align-items-center">
-          <a className="pe-2 link-dark" style={{ fontSize: ".8rem" }}>
+          <span className="pe-2 link-dark" style={{ fontSize: ".8rem" }}>
             SEE ALL
-          </a>
+          </span>
           <FontAwesomeIcon icon={faArrowRight} className="fs-4" />
         </p>
       </div>

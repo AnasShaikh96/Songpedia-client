@@ -2,7 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 
-import Login from "./components/Login/Login.js";
 import Navbar from "./components/Navbar/Navbar.js";
 
 import SongpediaBanner from "./components/Dashboard/SongpediaBanner.js";
@@ -34,12 +33,11 @@ const App = () => {
   return loggedIn ? (
     <>
       <Navbar />
-      <SongpediaBanner />
-      {/* <TopList loggedIn={loggedIn} /> */}
-      {/* <FeaturedArtist loggedIn={loggedIn} /> */}
+      <TopList loggedIn={loggedIn} />
+      <FeaturedArtist loggedIn={loggedIn} />
     </>
   ) : (
-    <Login />
+    <SongpediaBanner />
   );
 };
 

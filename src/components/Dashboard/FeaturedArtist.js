@@ -14,9 +14,12 @@ function FeaturedArtist() {
       >
         <h2>Featured Artists</h2>
         <p className="d-flex justify-content-end align-items-center">
-          <a className="pe-2 link-light" style={{ fontSize: ".8rem" }}>
+          <span
+            className="pe-2 link-light"
+            style={{ fontSize: ".8rem", cursor: "pointer" }}
+          >
             SEE ALL
-          </a>
+          </span>
           <FontAwesomeIcon icon={faArrowRight} className="fs-4" />
         </p>
       </div>

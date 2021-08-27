@@ -12,7 +12,9 @@ function GetFeaturedArtist() {
 
   useEffect(() => {
     if (!featuredArtist.length === 0) return;
+    // eslint-disable-next-line
     getArtist();
+    // eslint-disable-next-line
   }, []);
 
   const getArtist = () => {

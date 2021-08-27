@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 
 function GetSearchTracks() {
@@ -10,10 +10,10 @@ function GetSearchTracks() {
     client_secret: "5fb65e756f274eac9a077e5f8b3b2cf4",
     redirectUri: "http://localhost:8888/callback",
   });
-
   useEffect(() => {
     if (searchResult.length === 0) return;
     getTracks();
+    // eslint-disable-next-line
   }, [searchResult]);
 
   const getTracks = () => {

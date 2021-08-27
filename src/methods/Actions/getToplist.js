@@ -9,12 +9,7 @@ function GetToplist() {
     client_secret: "5fb65e756f274eac9a077e5f8b3b2cf4",
     redirectUri: "http://localhost:8888/callback",
   });
-
-  useEffect(() => {
-    if (!toplist.length === 0) return;
-    getList();
-  }, []);
-
+  // eslint-disable-next-line
   const getList = () => {
     spotifyApi
       .getPlaylist("7lTfsY5pPGWeqX1D79SYb2")
@@ -34,6 +29,11 @@ function GetToplist() {
         console.log("error from getPlaylist", e);
       });
   };
+
+  useEffect(() => {
+    if (!toplist.length === 0) return;
+    getList();
+  }, [getList, toplist.length]);
 
   return toplist;
 }

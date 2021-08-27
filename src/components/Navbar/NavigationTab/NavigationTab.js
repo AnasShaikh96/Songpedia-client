@@ -9,18 +9,18 @@ function NavigationTab() {
     >
       <ul className="nav">
         <li className="nav-item">
-          <a className="nav-link link-light " aria-current="page">
+          <span className="nav-link link-light " aria-current="page">
             Trending
-          </a>
+          </span>
         </li>
         <li className="nav-item">
-          <a className="nav-link link-light">Old hits</a>
+          <span className="nav-link link-light">Old hits</span>
         </li>
         <li className="nav-item">
-          <a className="nav-link link-light">Mood</a>
+          <span className="nav-link link-light">Mood</span>
         </li>
         <li className="nav-item">
-          <a className="nav-link link-light ">Radio</a>
+          <span className="nav-link link-light ">Radio</span>
         </li>
       </ul>
     </div>

@@ -14,7 +14,7 @@ function Navbar() {
     <>
       <nav className="navbar navbar-dark bg-dark">
         <div className="container">
-          <a className="navbar-brand me-5 fs-3">Songpedia</a>
+          <span className="navbar-brand me-5 fs-3">Songpedia</span>
           <SearchHandler
             className="flex-grow-1"
             setSearchResult={setSearchResult}
